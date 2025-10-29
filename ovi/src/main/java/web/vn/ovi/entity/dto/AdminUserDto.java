@@ -7,16 +7,12 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "admin_user")
-//@Getter
-//@Setter
 public class AdminUserDto {
     @Id
     @Column(name = "id")
