@@ -1,48 +1,47 @@
 Cấu trúc chi tiết các bảng
-🏷 Bảng service
+🏷 Bảng service kiennv
 CREATE TABLE service (
-    id SERIAL PRIMARY KEY,
+    id bigint PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     short_description TEXT,
     description TEXT,
-    image_url VARCHAR(500),
-    status BOOLEAN DEFAULT TRUE,
+    imageData TEXT,
+    status int,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-📰 Bảng news
+📰 Bảng news kiennv
 CREATE TABLE news (
-    id SERIAL PRIMARY KEY,
+    id bigint PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     summary TEXT,
     content TEXT,
     image_url VARCHAR(500),
     author VARCHAR(100),
-    published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status BOOLEAN DEFAULT TRUE,
+    status int,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-📞 Bảng contact_message
+📞 Bảng contact_message Kiennv
 CREATE TABLE contact_message (
-    id SERIAL PRIMARY KEY,
+    id bigint PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(150) NOT NULL,
     phone VARCHAR(20),
     message TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    is_read BOOLEAN DEFAULT FALSE
+    status int
 );
 
-👥 Bảng featured_person
-CREATE TABLE featured_person
-    id SERIAL PRIMARY KEY,
+👥 Bảng featured_person tuha
+CREATE TABLE featured_person (
+    id bigint PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     role VARCHAR(255),
     description TEXT,
-    image_url VARCHAR(500),
+    imageData TEXT,
     type VARCHAR(50) DEFAULT 'PERSON', 
     -- PERSON = nhân vật quan trọng, CLIENT = khách hàng tiêu biểu
     status BOOLEAN DEFAULT TRUE,
@@ -50,9 +49,9 @@ CREATE TABLE featured_person
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-🔐 (Tùy chọn) Bảng admin_user
+🔐 (Tùy chọn) Bảng admin_user tuha
 CREATE TABLE admin_user (
-    id SERIAL PRIMARY KEY,
+    id bigint PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     full_name VARCHAR(255),
