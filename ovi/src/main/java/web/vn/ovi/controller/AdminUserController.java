@@ -47,11 +47,17 @@ public class AdminUserController {
         if (adminUserRepository.findByUsername(userDto.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username already exists!");
         }
-
-        userDto.setPassword("{noop}" + userDto.getPassword()); // dùng NoOpEncoder cho đơn giản
         adminUserRepository.save(userDto);
 
         return ResponseEntity.ok("User registered successfully!");
+    }
+
+    @PostMapping("/public/delete")
+    public ResponseEntity<String> deleteUser(@RequestParam int id){
+        if(adminUserRepository.existsById(id)){
+            adminUserRepository.deleteById(id);
+        }
+        return  ResponseEntity.ok("đã xóa:" + id);
     }
 
     // 🧩 API test token hợp lệ (dựa trên JwtTokenUtil)

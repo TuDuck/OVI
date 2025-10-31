@@ -1,9 +1,6 @@
 package web.vn.ovi.entity.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,6 +14,12 @@ public class AdminUserDto {
     @Id
     @Column(name = "id")
     @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            name = "admin_user_seq",
+            sequenceName = "admin_user_seq",
+            allocationSize = 1
+    )
     private int id ;
 
     @Column(name = "username")

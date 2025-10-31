@@ -7,6 +7,6 @@ import web.vn.ovi.entity.dto.AdminUserDto;
 import java.util.Optional;
 
 @Repository
-public interface AdminUserRepository extends JpaRepository<AdminUserDto,Long> {
+public interface AdminUserRepository extends JpaRepository<AdminUserDto,Integer> {
     Optional<AdminUserDto> findByUsername(String username);
 }
