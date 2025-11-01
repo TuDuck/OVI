@@ -4,16 +4,19 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "admin_user")
+@Getter
+@Setter
 public class AdminUserDto {
     @Id
     @Column(name = "id")
-    @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(
             name = "admin_user_seq",
@@ -43,61 +46,4 @@ public class AdminUserDto {
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
-
-    @NotNull
-    public int getId() {
-        return id;
-    }
-
-    public void setId(@NotNull int id) {
-        this.id = id;
-    }
-
-    public @NotBlank(message = "Username không được để trống") String getUsername() {
-        return username;
-    }
-
-    public void setUsername(@NotBlank(message = "Username không được để trống") String username) {
-        this.username = username;
-    }
-
-    public @NotBlank(message = "Password không được để trống") @Size(min = 8, message = "Password phải có ít nhất 8 ký tự") String getPassword() {
-        return password;
-    }
-
-    public void setPassword(@NotBlank(message = "Password không được để trống") @Size(min = 8, message = "Password phải có ít nhất 8 ký tự") String password) {
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public @Email(message = "Email không hợp lệ") String getEmail() {
-        return email;
-    }
-
-    public void setEmail(@Email(message = "Email không hợp lệ") String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
