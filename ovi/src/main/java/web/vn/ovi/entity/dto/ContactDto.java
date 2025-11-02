@@ -19,8 +19,8 @@ public class ContactDto {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(
-            name = "contact_message_id_seq",
-            sequenceName = "contact_message_id_seq",
+            name = "contact_message_seq",
+            sequenceName = "contact_message_seq",
             allocationSize = 1
     )
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -33,6 +33,7 @@ public class ContactDto {
     private String name;
 
     @Column(name = "email", unique = true, nullable = false)
+    @NotBlank(message = "Email không được để trống")
     @Email(message = "Email không hợp lệ")
     private String email;
 
@@ -41,7 +42,6 @@ public class ContactDto {
     private String phone;
 
     @Column(name = "message")
-    @NotBlank(message = "Nội dung tin nhắn không được để trống")
     private String message;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

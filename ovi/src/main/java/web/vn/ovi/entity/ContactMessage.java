@@ -17,7 +17,8 @@ public class ContactMessage {
 
     @Id
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_message_seq")
+    @SequenceGenerator(name = "contact_message_seq", sequenceName = "contact_message_seq", allocationSize = 1)
     @Column(name = "id")
     private Long id;
 

@@ -1,6 +1,11 @@
 package web.vn.ovi.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.vn.ovi.entity.ContactMessage;
@@ -47,8 +52,21 @@ public class ContactService {
         existing.setStatus(dto.getStatus());
         return contactRepository.save(existing);
     }
-    public List<ContactMessage> searchByStatusAndName(int status, String name) {
-        return contactRepository.findByStatusAndNameContainingIgnoreCase(status, name);
+    public Page<ContactMessage> search(Integer status, String name, int page, int size) {
+        Specification<ContactMessage> spec = (root, query, cb) -> cb.conjunction();
+
+        if (status != null) {
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("status"), status));
+        }
+
+        if (name != null && !name.isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
+        }
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        return contactRepository.findAll(spec, pageable);
     }
     public void delete(Long id) {
         contactRepository.deleteById(id);

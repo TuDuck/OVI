@@ -1,6 +1,7 @@
 package web.vn.ovi.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.vn.ovi.entity.ContactMessage;
@@ -35,10 +36,12 @@ public class ContactController {
         return ResponseEntity.ok(contactService.update(id, dto));
     }
     @GetMapping("/contact/search")
-    public ResponseEntity<List<ContactMessage>> searchContacts(
-            @RequestParam int status,
-            @RequestParam String name) {
-        return ResponseEntity.ok(contactService.searchByStatusAndName(status, name));
+    public ResponseEntity<Page<ContactMessage>> searchContacts(
+            @RequestParam(required = false) Integer status,
+            @RequestParam(required = false) String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(contactService.search(status, name, page, size));
     }
     @DeleteMapping("/contact/{id}")
     public ResponseEntity<Void> deleteContact(@PathVariable Long id) {
