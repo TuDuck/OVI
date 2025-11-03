@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.vn.ovi.entity.ContactMessage;
-import web.vn.ovi.entity.dto.ContactDto;
 import web.vn.ovi.service.ContactService;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class ContactController {
         return ResponseEntity.ok(contactService.findById(id));
     }
     @PutMapping("/contact/{id}")
-    public ResponseEntity<ContactMessage> updateContact(@PathVariable Long id, @RequestBody ContactDto dto) {
+    public ResponseEntity<ContactMessage> updateContact(@PathVariable Long id, @RequestBody ContactMessage dto) {
         return ResponseEntity.ok(contactService.update(id, dto));
     }
     @GetMapping("/contact/search")

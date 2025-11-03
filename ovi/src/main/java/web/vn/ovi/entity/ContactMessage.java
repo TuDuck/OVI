@@ -2,7 +2,9 @@ package web.vn.ovi.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 
@@ -26,9 +28,11 @@ public class ContactMessage {
     private String name;
 
     @Column(name = "email", unique = true, nullable = false)
+    @Email(message = "Phải là @gmail.com")
     private String email;
 
     @Column(name = "phone", unique = true, nullable = false)
+    @Length(min = 10)
     private String phone;
 
     @Column(name = "message", nullable = false, columnDefinition = "TEXT")
