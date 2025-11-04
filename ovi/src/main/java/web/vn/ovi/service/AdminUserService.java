@@ -14,13 +14,13 @@ import web.vn.ovi.utils.JwtTokenUtil;
 public class AdminUserService implements UserDetailsService {
 
     @Autowired
-    private  AdminUserRepository adminUserRepository;
+    private AdminUserRepository adminUserRepository;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
-    public  UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AdminUserDto user = adminUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 

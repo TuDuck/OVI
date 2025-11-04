@@ -29,13 +29,16 @@ public class ContactService {
         sendConfirmationEmail(contact);
         return contactRepository.save(contact);
     }
+
     public List<ContactMessage> findAll() {
         return contactRepository.findAll();
     }
+
     public ContactMessage findById(Long id) {
         return contactRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy contact id = " + id));
     }
+
     public ContactMessage update(Long id, ContactMessage dto) {
         ContactMessage existing = findById(id);
         existing.setName(dto.getName());
@@ -45,6 +48,7 @@ public class ContactService {
         existing.setStatus(dto.getStatus());
         return contactRepository.save(existing);
     }
+
     public Page<ContactMessage> search(Integer status, String name, int page, int size) {
         Specification<ContactMessage> spec = (root, query, cb) -> cb.conjunction();
 
@@ -61,6 +65,7 @@ public class ContactService {
 
         return contactRepository.findAll(spec, pageable);
     }
+
     public void delete(Long id) {
         contactRepository.deleteById(id);
     }

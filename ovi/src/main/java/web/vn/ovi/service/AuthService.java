@@ -24,9 +24,7 @@ public class AuthService {
     private JwtTokenUtil jwtTokenUtil;
 
     public Map<String, Object> login(String username, String password) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password)
-        );
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

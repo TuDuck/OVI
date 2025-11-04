@@ -15,9 +15,10 @@ public class FeaturePersonController {
     private FeaturedPersonService featuredPersonService;
 
     @GetMapping("/featuredPerson")
-    public ResponseEntity<List<FeaturedPersonDto>> getAll(){
+    public ResponseEntity<List<FeaturedPersonDto>> getAll() {
         return ResponseEntity.ok(featuredPersonService.getAll());
     }
+
     // 🟢 Lấy theo ID
     @GetMapping("featuredPerson/{id}")
     public ResponseEntity<?> getById(@PathVariable Integer id) {

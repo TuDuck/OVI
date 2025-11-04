@@ -1,4 +1,5 @@
 package web.vn.ovi.service;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,13 +24,16 @@ public class NewService {
         news.setCreatedAt(LocalDateTime.now());
         return newRepository.save(news);
     }
+
     public List<NewsDto> findAll() {
         return newRepository.findAll();
     }
+
     public NewsDto findById(Long id) {
         return newRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy news id = " + id));
     }
+
     public NewsDto update(Long id, NewsDto dto) {
         NewsDto existing = findById(id);
         existing.setTitle(dto.getTitle());
@@ -37,9 +41,11 @@ public class NewService {
         existing.setAuthor(dto.getAuthor());
         return newRepository.save(existing);
     }
+
     public void delete(Long id) {
         newRepository.deleteById(id);
     }
+
     public Page<NewsDto> search(String keyword, int page, int size) {
         Specification<NewsDto> spec = (root, query, cb) -> cb.conjunction();
 

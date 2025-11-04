@@ -13,8 +13,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class AdminUserController {
-//    private final AuthenticationManager authenticationManager;
-//    private final JwtTokenUtil jwtTokenUtil;
     private final AdminUserRepository adminUserRepository;
     private final AdminUserService adminUserService;
 
@@ -22,13 +20,9 @@ public class AdminUserController {
     private AuthService authService;
 
     public AdminUserController(
-//            AuthenticationManager authenticationManager,
-//                               JwtTokenUtil jwtTokenUtil,
                                AdminUserRepository adminUserRepository,
                                AdminUserService adminUserService
     ) {
-//        this.authenticationManager = authenticationManager;
-//        this.jwtTokenUtil = jwtTokenUtil;
         this.adminUserRepository = adminUserRepository;
         this.adminUserService = adminUserService;
     }

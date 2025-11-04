@@ -24,23 +24,14 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AdminUserService adminUserService;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter,
-                          AdminUserService adminUserService) {
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, AdminUserService adminUserService) {
         this.jwtAuthFilter = jwtAuthFilter;
         this.adminUserService = adminUserService;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/public/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+        return http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource())).authorizeHttpRequests(auth -> auth.requestMatchers("/api/public/**").permitAll().anyRequest().authenticated()).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 
     // ✅ Thêm bean AuthenticationManager
@@ -66,8 +57,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 //        config.addAllowedOrigin("http://127.0.0.1:5500"); // ✅ FE chạy ở đây
-        config.setAllowedOrigins(Arrays.asList(
-                "http://127.0.0.1:5500",     // local dev
+        config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500",     // local dev
                 "https://ovigroup.vn"       // deploy thật (để sẵn)
         ));
         config.addAllowedMethod("*");

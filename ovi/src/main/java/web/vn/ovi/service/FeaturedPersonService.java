@@ -13,7 +13,7 @@ public class FeaturedPersonService {
     @Autowired
     private FeaturedPersonRepository featuredPersonRepository;
 
-    public List<FeaturedPersonDto> getAll(){
+    public List<FeaturedPersonDto> getAll() {
         return featuredPersonRepository.findAll();
     }
 

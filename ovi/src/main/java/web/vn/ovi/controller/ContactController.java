@@ -30,10 +30,12 @@ public class ContactController {
     public ResponseEntity<ContactMessage> getContactById(@PathVariable Long id) {
         return ResponseEntity.ok(contactService.findById(id));
     }
+
     @PutMapping("/contact/{id}")
     public ResponseEntity<ContactMessage> updateContact(@PathVariable Long id, @RequestBody ContactMessage dto) {
         return ResponseEntity.ok(contactService.update(id, dto));
     }
+
     @GetMapping("/contact/search")
     public ResponseEntity<Page<ContactMessage>> searchContacts(
             @RequestParam(required = false) Integer status,
@@ -42,6 +44,7 @@ public class ContactController {
             @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(contactService.search(status, name, page, size));
     }
+
     @DeleteMapping("/contact/{id}")
     public ResponseEntity<Void> deleteContact(@PathVariable Long id) {
         contactService.delete(id);
