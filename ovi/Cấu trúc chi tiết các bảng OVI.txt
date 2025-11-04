@@ -17,7 +17,7 @@ CREATE TABLE news (
     title VARCHAR(255) NOT NULL,
     summary TEXT,
     content TEXT,
-    image_url VARCHAR(500),
+    image_data VARCHAR(500),
     author VARCHAR(100),
     status int,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -42,8 +42,8 @@ CREATE TABLE featured_person (
     role VARCHAR(255),
     description TEXT,
     imageData TEXT,
-    type VARCHAR(50) DEFAULT 'PERSON', 
-    -- PERSON = nhân vật quan trọng, CLIENT = khách hàng tiêu biểu
+    type VARCHAR(50) DEFAULT 'COMPANY',
+    -- COMPANY = đối tác, CLIENT = khách hàng tiêu biểu, LEADER = Ban lãnh đạo
     status BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
