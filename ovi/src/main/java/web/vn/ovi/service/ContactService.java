@@ -72,6 +72,7 @@ public class ContactService {
 
     private void sendConfirmationEmail(ContactMessage contact) {
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("info@ovigroup.vn"); // ✅ Thêm dòng này
         message.setTo(contact.getEmail());
         message.setSubject("Cảm ơn bạn đã liên hệ với chúng tôi");
         message.setText(

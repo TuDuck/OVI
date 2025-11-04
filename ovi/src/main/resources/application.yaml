@@ -17,17 +17,31 @@ spring:
       ddl-auto: validate  # hoặc validate / create / create-drop
       auto-commit: false
     show-sql: true
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: besttaloon03@gmail.com
+#    password: "qjxh rbms xsry wwlr"
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
   mail:
-    host: smtp.gmail.com
+    host: mail.ovigroup.vn
     port: 587
-    username: besttaloon03@gmail.com
-    password: "qjxh rbms xsry wwlr"
+    username: info@ovigroup.vn
+    password: "2L]cvqnIxIx(uuXM"
+    protocol: smtp
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+            required: true
+    from: info@ovigroup.vn
   #logging:
   #  level:
   #    org.hibernate.SQL: DEBUG

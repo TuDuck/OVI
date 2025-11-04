@@ -30,8 +30,8 @@ public class NewsDto {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    @Column(name = "image_data")
+    private String imageData;
 
     @Column(name = "author")
     private String author;
