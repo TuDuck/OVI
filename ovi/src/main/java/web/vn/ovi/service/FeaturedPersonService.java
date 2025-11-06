@@ -1,8 +1,14 @@
 package web.vn.ovi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import web.vn.ovi.entity.dto.FeaturedPersonDto;
+import web.vn.ovi.entity.dto.ServiceDto;
 import web.vn.ovi.repository.FeaturedPersonRepository;
 
 import java.util.List;
@@ -13,8 +19,8 @@ public class FeaturedPersonService {
     @Autowired
     private FeaturedPersonRepository featuredPersonRepository;
 
-    public List<FeaturedPersonDto> getAll() {
-        return featuredPersonRepository.findAll();
+    public List<FeaturedPersonDto> findByType(String type) {
+        return featuredPersonRepository.findByType(type);
     }
 
     // 🟢 Lấy theo ID
@@ -51,5 +57,17 @@ public class FeaturedPersonService {
             return true;
         }
         return false;
+    }
+
+    public Page<FeaturedPersonDto> search(String keyword, int page, int size) {
+        Specification<FeaturedPersonDto> spec = (root, query, cb) -> cb.conjunction();
+
+        if (keyword != null && !keyword.isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.like(cb.lower(root.get("title")), "%" + keyword.toLowerCase() + "%"));
+        }
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return featuredPersonRepository.findAll(spec, pageable);
     }
 }

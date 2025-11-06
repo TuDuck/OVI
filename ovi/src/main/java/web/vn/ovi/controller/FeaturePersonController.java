@@ -1,9 +1,11 @@
 package web.vn.ovi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import web.vn.ovi.entity.dto.FeaturedPersonDto;
+import web.vn.ovi.entity.dto.ServiceDto;
 import web.vn.ovi.service.FeaturedPersonService;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class FeaturePersonController {
     private FeaturedPersonService featuredPersonService;
 
     @GetMapping("/featuredPerson")
-    public ResponseEntity<List<FeaturedPersonDto>> getAll() {
-        return ResponseEntity.ok(featuredPersonService.getAll());
+    public ResponseEntity<List<FeaturedPersonDto>> findByType(@RequestParam String type) {
+        return ResponseEntity.ok(featuredPersonService.findByType(type));
     }
 
     // 🟢 Lấy theo ID
@@ -51,6 +53,15 @@ public class FeaturePersonController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok("Deleted successfully");
+    }
+
+    @GetMapping("/featuredPerson/search")
+    public ResponseEntity<Page<FeaturedPersonDto>> search(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(featuredPersonService.search(keyword, page, size));
     }
 
 }
