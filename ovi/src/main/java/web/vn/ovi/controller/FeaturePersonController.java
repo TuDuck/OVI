@@ -58,10 +58,11 @@ public class FeaturePersonController {
     @GetMapping("/featuredPerson/search")
     public ResponseEntity<Page<FeaturedPersonDto>> search(
             @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String type,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(featuredPersonService.search(keyword, page, size));
+        return ResponseEntity.ok(featuredPersonService.search(keyword,type, page, size));
     }
 
 }

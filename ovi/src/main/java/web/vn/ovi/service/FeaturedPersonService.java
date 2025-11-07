@@ -59,12 +59,20 @@ public class FeaturedPersonService {
         return false;
     }
 
-    public Page<FeaturedPersonDto> search(String keyword, int page, int size) {
+    public Page<FeaturedPersonDto> search(String keyword,String type, int page, int size) {
         Specification<FeaturedPersonDto> spec = (root, query, cb) -> cb.conjunction();
 
-        if (keyword != null && !keyword.isBlank()) {
+        if ((keyword != null && !keyword.isBlank()) ) {
             spec = spec.and((root, query, cb) ->
-                    cb.like(cb.lower(root.get("title")), "%" + keyword.toLowerCase() + "%"));
+                    cb.like(cb.lower(root.get("name")), "%" + keyword.toLowerCase() + "%")
+            );
+        }
+
+        // 🟢 Lọc theo type (chính xác tuyệt đối)
+        if (type != null && !type.isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.equal(root.get("type"), type)
+            );
         }
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
