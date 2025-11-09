@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feature Person Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font & Icons -->
+    <link href="css/font-face.css" rel="stylesheet">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+
+    <!-- Bootstrap + Vendor CSS -->
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/animsition/animsition.min.css" rel="stylesheet">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet">
+    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" media="all">
+    <link href="css/featuredPerson.css" rel="stylesheet" media="all">
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+
+
+        <!-- Sidebar -->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="#"><img src="/assets/img/fulllogo_verti.png" alt="Cool Admin"></a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li><a href="index.html"><i class="fas fa-home"></i>Trang chủ</a></li>
+                        <li class="active"><a href="FeaturePerson.html"><i class="fas fa-users"></i>Feature Person</a></li>
+                        <li><a href="productService.html"><i class="fas fa-box"></i>Sản phẩm & Dịch
+                                vụ</a></li>
+                        <li><a href="news.html"><i class="fas fa-newspaper"></i>News</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-cog"></i>Chức năng</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="/login.html">Đổi tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="/login.html">Đăng ký</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- PAGE CONTAINER -->
+        <div class="page-container">
+            <!-- Header -->
+            <header class="header-desktop">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid d-flex justify-content-between align-items-center">
+                        <h1>Feature Person</h1>
+                        <div class="account-wrap">
+                            <div class="account-item clearfix js-item-menu">
+                                <div class="image"><img src="images/icon/avatar-01.jpg" alt="Admin"></div>
+                                <div class="content"><a class="js-acc-btn" href="#">ADMIN</a></div>
+                                <div class="account-dropdown js-dropdown">
+                                    <div class="account-dropdown__footer">
+                                        <a href="/login.html"><i class="zmdi zmdi-power"></i>Đăng xuất</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+
+                        <!-- thanh công cụ -->
+                        <div class="table-data__tool">
+                            <div class="table-data__tool-right">
+                                <button class="btn btn-primary" onclick="openPersonAddForm()">
+                                    ➕ Add Person</button>
+                            </div>
+                        </div>
+
+                        <!-- Form thêm mới -->
+                        <div id="addPersonForm" class="offcanvas-form">
+                            <div class="form-container">
+                                <h4>📝 Add Person</h4>
+
+                                <label>ID:</label>
+                                <input type="number" id="id" class="form-control mb-2" disabled>
+
+                                <label>Name:</label>
+                                <input type="text" id="name" class="form-control mb-2" placeholder="VD: Anh Mân Đàn">
+
+                                <label>Role:</label>
+                                <input type="text" id="role" class="form-control mb-2"
+                                    placeholder="VD: CEO, Founder,...">
+
+                                <label>Description:</label>
+                                <textarea id="description" class="form-control mb-3" rows="3"
+                                    placeholder="VD: Nhà sáng lập OVi Group, chuyên gia trong lĩnh vực chuyển đổi số..."></textarea>
+
+                                <label>Image:</label>
+                                <input type="file" id="imageFile" class="form-control mb-3" accept="image/*">
+                                <img id="imagePreview" src="" alt="Preview"
+                                    style="max-width:100%; border-radius:8px; display:none; margin-bottom:8px;">
+
+                                <label>Type:</label>
+                                <select id="type" class="form-control mb-3">
+                                    <option value="COMPANY">COMPANY (Đối tác)</option>
+                                    <option value="LEADER">LEADER (Lãnh đạo)</option>
+                                    <option value="CLIENT">CLIENT (Khách hàng tiêu biểu)</option>
+                                </select>
+
+                                <label>Status:</label>
+                                <select id="status" class="form-control mb-3">
+                                    <option value="1" selected>Hoạt động</option>
+                                    <option value="0">Không hoạt động</option>
+                                </select>
+
+                                <button class="btn btn-success" id="saveBtn" onclick="savePerson()">Lưu</button>
+                                <button class="btn btn-light" onclick="closePersonAddForm()">Hủy</button>
+                            </div>
+                        </div>
+                        <div class="form-overlay"></div>
+
+                        <!-- Tìm kiếm và phân trang -->
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" id="searchName" class="form-control"
+                                        placeholder="Tìm theo tên...">
+                                    <select id="searchType" class="form-control">
+                                        <option value="">Tất cả Type</option>
+                                        <option value="COMPANY">COMPANY</option>
+                                        <option value="LEADER">LEADER</option>
+                                        <option value="CLIENT">CLIENT</option>
+                                    </select>
+                                    <!-- <select id="searchStatus" class="form-control">
+                                        <option value="">Tất cả Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4">
+                                <button id="sortNameBtn" class="btn btn-secondary">
+                                    Sắp xếp theo tên <i class="fas fa-sort"></i>
+                                </button>
+                            </div> -->
+                        </div>
+
+                        <!-- Bảng danh sách -->
+                        <div class="table-responsive table-responsive-data2 mt-4">
+                            <table class="table table-data2">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <!-- <tbody class="data-table-course"></tbody> -->
+                                <tbody id="personTableBody"></tbody>
+                            </table>
+                        </div>
+                        <div id="pagination" class="mt-3 d-flex justify-content-center"></div>
+
+
+                        <!-- Table danh sách bổ nhiệm giáo viên -->
+                        <!-- <div class="table-responsive table-responsive-data2">
+                            <table class="table table-data2">
+                                <thead>
+                                    <tr>
+                                        <th><label class="au-checkbox"><input type="checkbox"><span
+                                                    class="au-checkmark"></span></label></th>
+                                        <th>Mã môn</th>
+                                        <th>Tên môn</th>
+                                        <th>Mã giáo viên trực thuộc</th>
+                                        <th>Mã lớp</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="data-table-courseIsClass"></tbody>
+                            </table>
+                        </div> -->
+                    </div>
+                </div>
+            </div> <!-- END MAIN -->
+        </div> <!-- END PAGE CONTAINER -->
+    </div> <!-- END WRAPPER -->
+
+    <!-- Scripts -->
+    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="vendor/animsition/animsition.min.js"></script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/customFun.js"></script>
+    <script src="js/crud.js"></script>
+    <script src="js/courseConfig.js"></script>
+
+    <script src="js/featuredPerson.js"></script>
+</body>
+
+</html>

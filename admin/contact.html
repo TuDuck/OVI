@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Message Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="assets/img/logo_icon.png" rel="icon">
+
+    <!-- Font & Icons -->
+    <link href="css/font-face.css" rel="stylesheet">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+
+    <!-- Bootstrap + Vendor CSS -->
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/animsition/animsition.min.css" rel="stylesheet">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet">
+    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/contact.css" rel="stylesheet">
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- Sidebar -->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="#"><img src="/assets/img/fulllogo_verti.png" alt="Logo"></a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li><a href="index.html"><i class="fas fa-home"></i>Trang chủ</a></li>
+                        <li><a href="FeaturePerson.html"><i class="fas fa-users"></i>Feature Person</a></li>
+                        <li><a href="productService.html"><i class="fas fa-box"></i>Sản phẩm & Dịch
+                                vụ</a></li>
+                        <li><a href="news.html"><i class="fas fa-newspaper"></i>News</a></li>
+                        <li class="active"><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-cog"></i>Chức năng</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                    <a href="/login.html">Đổi tài khoản</a>
+                                </li>
+                                <li>
+                                    <a href="/login.html">Đăng ký</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- PAGE CONTAINER -->
+        <div class="page-container">
+            <!-- Header -->
+            <header class="header-desktop">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid d-flex justify-content-between align-items-center">
+                        <h1>Quản lý tin nhắn liên hệ</h1>
+                        <div class="account-wrap">
+                            <div class="account-item clearfix js-item-menu">
+                                <div class="image"><img src="images/icon/avatar-01.jpg" alt="Admin"></div>
+                                <div class="content"><a class="js-acc-btn" href="#">ADMIN</a></div>
+                                <div class="account-dropdown js-dropdown">
+                                    <div class="account-dropdown__footer">
+                                        <a href="/login.html"><i class="zmdi zmdi-power"></i>Đăng xuất</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <!-- Toolbar -->
+                        <div class="table-data__tool mb-3">
+                            <div class="table-data__tool-right">
+                                <button class="btn btn-primary" onclick="openAddContactForm()">
+                                    ➕ Thêm liên hệ mới
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Search filters -->
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="text" id="searchName" class="form-control"
+                                        placeholder="Tìm theo tên...">
+                                    <input type="text" id="searchEmail" class="form-control"
+                                        placeholder="Tìm theo email...">
+                                    <input type="text" id="searchPhone" class="form-control"
+                                        placeholder="Tìm theo số điện thoại...">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button id="sortNameBtn" class="btn btn-secondary">
+                                    Sắp xếp theo tên <i class="fas fa-sort"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Messages Table -->
+                        <div class="table-responsive table-responsive-data2">
+                            <table class="table table-data2">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tên</th>
+                                        <th>Email</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Tin nhắn</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contactTableBody"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div id="pagination" class="mt-3 d-flex justify-content-center"></div>
+
+                        <!-- Message Detail Modal -->
+                        <div class="form-overlay"></div>
+                        <div id="messageDetailForm" class="offcanvas-form">
+                            <div class="form-container">
+                                <h4>📧 Chi tiết tin nhắn</h4>
+
+                                <input type="hidden" id="messageId">
+
+                                <label>Tên người gửi:</label>
+                                <input type="text" id="contactName" class="form-control mb-2">
+
+                                <label>Email:</label>
+                                <input type="email" id="contactEmail" class="form-control mb-2">
+
+                                <label>Số điện thoại:</label>
+                                <input type="tel" id="contactPhone" class="form-control mb-2">
+
+                                <label>Nội dung tin nhắn:</label>
+                                <textarea id="contactMessage" class="form-control mb-3" rows="6"></textarea>
+
+                                <div class="form-actions">
+                                    <button class="btn btn-success" onclick="saveMessage()">Lưu</button>
+                                    <button class="btn btn-light" onclick="closeMessageDetail()">Hủy</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <script src="vendor/animsition/animsition.min.js"></script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+
+</html>

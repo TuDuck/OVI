@@ -36,7 +36,7 @@ const auth = {
 			if (res.ok) {
 				localStorage.setItem("token", data.token);
 				alert("Đăng nhập thành công!");
-				window.location.href = "index.html";
+				window.location.href = "/admin/index.html";
 			} else {
 				alert(data.message || "Sai tài khoản hoặc mật khẩu!");
 			}

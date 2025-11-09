@@ -1,0 +1,158 @@
+/* Điều chỉnh z-index cho header */
+.header-desktop {
+    z-index: 1000;
+}
+
+/* Form và overlay với z-index cao hơn */
+.form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 100000; /* Cao hơn header */
+}
+
+.form-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Offcanvas form */
+.offcanvas-form {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    max-width: 95%;
+    max-height: 90vh;
+    background-color: #fff;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    padding: 24px;
+    overflow-y: auto;
+    z-index: 100001; /* Cao hơn overlay */
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.offcanvas-form.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Chỉnh lại padding cho mobile */
+@media (max-width: 576px) {
+    .offcanvas-form {
+        width: 95%;
+        max-height: 80vh;
+        margin: 20px auto;
+    }
+}
+
+/* Form controls */
+.form-control {
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.form-control:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 0.2rem rgba(76,175,80,.25);
+}
+
+/* Buttons */
+.btn-success {
+    background: #4CAF50;
+    border: none;
+    color: white;
+}
+
+.btn-light {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+}
+
+/* Table styles */
+.table-data2 {
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.table-data2 th {
+    background: #f8f9fa;
+    padding: 1rem;
+}
+
+.table-data2 td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+/* Search inputs */
+.input-group .form-control {
+    margin-bottom: 0;
+}
+
+/* Sort button */
+#sortNameBtn {
+    min-width: 160px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Image preview */
+#imagePreview {
+    max-height: 200px;
+    object-fit: contain;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+/* Search bar styling */
+.input-group {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.input-group .form-control {
+    border: 1px solid #e0e0e0;
+}
+
+.input-group .form-control:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group select.form-control {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.input-group .form-control:focus {
+    box-shadow: none;
+    border-color: #80bdff;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .input-group {
+        margin-bottom: 1rem;
+    }
+    
+    .col-md-4.text-right {
+        text-align: left !important;
+    }
+}

@@ -1,0 +1,52 @@
+.offcanvas-form {
+    position: fixed;
+    top: 80px;
+    right: -400px;
+    width: 400px;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    padding: 20px;
+    z-index: 9999;
+    transition: right 0.4s ease;
+}
+
+.offcanvas-form.show {
+    right: 0;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.table-responsive-data2 {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+
+.bg-img {
+    position: fixed;       /* Giữ cố định khi cuộn */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     /* Giúp ảnh phủ kín màn hình */
+    z-index: -1;           /* Đưa ảnh xuống dưới */
+    pointer-events: none;  /* Đảm bảo click xuyên qua */
+}
+
+/* Làm trong suốt các khối bao ngoài */
+.page-wrapper,
+.page-content--bge5,
+.container,
+.login-wrap,
+.login-content {
+    background: transparent !important;
+}
+/* .table-data2 {
+    min-width: 1200px;
+} */
+
