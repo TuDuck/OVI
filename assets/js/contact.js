@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const message = document.getElementById("message-field").value;
 
     try {
-      const response = await fetch("http://26.129.206.142:8080/api/contact", {
+      const response = await fetch("http://14.225.71.26:8000/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

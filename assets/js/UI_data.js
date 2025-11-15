@@ -1,5 +1,5 @@
-const API_URL_LEADER = "http://26.129.206.142:8080/api/featuredPerson?type=LEADER";
-const API_URL_SERVICES = "http://26.129.206.142:8080/api/services";
+const API_URL_LEADER = "http://14.225.71.26:8000/api/featuredPerson?type=LEADER";
+const API_URL_SERVICES = "http://14.225.71.26:8000/api/services";
 const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWVubnYiLCJpYXQiOjE3NjIyMzAwMDN9.RPI0R1UgVl3V4yuoXbm6I2H6xV8whs1DXy065i4kzXI";
 
 /// leader.js ///

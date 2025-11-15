@@ -1,4 +1,4 @@
-const API_URL = "http://26.129.206.142:8080/api/services";
+const API_URL = "http://14.225.71.26:8000/api/services";
 const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWVubnYiLCJpYXQiOjE3NjIyNDUyMTV9.jzCfBf85jOaH8Qn1JT7XStwFpaBLBdkDkQFW0IVVheQ";
 
 let products = [];
