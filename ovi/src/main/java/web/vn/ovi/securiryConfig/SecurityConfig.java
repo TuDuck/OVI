@@ -57,8 +57,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 //        config.addAllowedOrigin("http://127.0.0.1:5500"); // ✅ FE chạy ở đây
-        config.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500",     // local dev
-                "https://ovigroup.vn"       // deploy thật (để sẵn)
+        config.setAllowedOrigins(Arrays.asList(
+                "https://ovigroup.vn",       // domain chính
+                "https://www.ovigroup.vn",    // nếu có www
+                "http://127.0.0.1:5500",   // FE local dev
+                "http://127.0.0.1:8081",   // FE build chạy local
+                "http://localhost:5500",
+                "http://localhost:8081",
+                "http://14.225.71.26:8000"
         ));
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
