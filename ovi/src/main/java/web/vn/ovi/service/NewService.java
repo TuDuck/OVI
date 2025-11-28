@@ -41,6 +41,11 @@ public class NewService {
         existing.setAuthor(dto.getAuthor());
         existing.setSummary(dto.getSummary());
         existing.setImageData(dto.getImageData());
+        existing.setStatus(dto.getStatus());
+        existing.setCategory(dto.getCategory());
+        existing.setViews(dto.getViews());
+        existing.setFeatured(dto.getFeatured());
+        existing.setUpdatedAt(LocalDateTime.now());
         return newRepository.save(existing);
     }
 
