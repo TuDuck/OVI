@@ -36,6 +36,21 @@ public class NewsDto {
     @Column(name = "author")
     private String author;
 
+    @Column(name = "status")
+    private Integer status;
+
+    @Column(name = "category")
+    private String category;
+
+    @Column(name = "views")
+    private Integer views;
+
+    @Column(name = "featured")
+    private String featured;
+
+    @Column(name = "link")
+    private String link;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
