@@ -34,6 +34,7 @@ spring:
     username: info@ovigroup.vn
     password: "2L]cvqnIxIx(uuXM"
     protocol: smtp
+    default-encoding: UTF-8
     properties:
       mail:
         smtp:
@@ -42,6 +43,21 @@ spring:
             enable: true
             required: true
     from: info@ovigroup.vn
+#  mail:
+#    host: mail.ovigroup.vn
+#    port: 587
+#    username: info@ovigroup.vn
+#    password: "2L]cvqnIxIx(uuXM"
+#    protocol: smtp
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+#    from: info@ovigroup.vn
+
   #logging:
   #  level:
   #    org.hibernate.SQL: DEBUG

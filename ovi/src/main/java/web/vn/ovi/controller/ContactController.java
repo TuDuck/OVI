@@ -1,5 +1,6 @@
 package web.vn.ovi.controller;
 
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ContactController {
     private final ContactService contactService;
 
     @PostMapping("/contact")
-    public ResponseEntity<ContactMessage> createContact(@RequestBody ContactMessage contact) {
+    public ResponseEntity<ContactMessage> createContact(@RequestBody ContactMessage contact) throws MessagingException {
         return ResponseEntity.ok(contactService.save(contact));
     }
 

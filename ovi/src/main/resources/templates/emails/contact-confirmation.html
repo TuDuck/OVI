@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>OVI – Confirmation</title>
+    <style>
+        body { font-family:'Segoe UI',Arial,sans-serif; color:#1a1a1a; }
+        .card { max-width:600px; margin:auto; border:1px solid #eee; padding:32px; }
+        .signature { border-top:1px solid #d9d9d9; margin-top:32px; padding-top:24px; font-size:13px; color:#7a7a7a; }
+        .signature p { margin:4px 0; }            /* loại bỏ margin lớn mặc định */
+        .signature .contact-label { color:#8b0000; font-weight:600; }
+        .signature .contact-sub { color:#8b0000; }
+        .signature .assets { margin-top:12px; }
+        .signature .assets img { height:68px; margin-right:16px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <p>Xin chào <strong th:text="${name}">Nguyễn Văn A</strong>,</p>
+    <p>Chúng tôi đã nhận được phản hồi của bạn:</p>
+    <blockquote th:text="${message}">Nội dung tin nhắn...</blockquote>
+    <p>Nếu cần trao đổi thêm, bạn có thể gọi ngay số hotline hoặc trả lời email này.</p>
+    <p>Trân trọng,<br/>Đội ngũ hỗ trợ OVI.</p>
+
+    <div class="signature">
+        <div class="logos">
+            <img src="cid:oviLogo" alt="OVI Group"/>
+        </div>
+
+        <p class="contact-label">Vo Nhu Vinh&nbsp;&nbsp;|&nbsp;&nbsp;C.E.O</p>
+        <p class="contact-sub">OVI Technology Joint Stock Company</p>
+
+        <p>97 Ta Hien, Cat Lai Ward, HCMC</p>
+        <p>Mobile: +84 944097744</p>
+        <p>Email: info@ovigroup.vn</p>
+
+        <div class="assets">
+            <img src="cid:qrCode" alt="QR"/>
+            <img src="cid:oraclePartner" alt="Oracle Partner"/>
+        </div>
+
+        <p class="disclaimer">IMPORTANT INFORMATION: The contents of this email and any attachments are confidential and intended solely for the named recipient. If you are not the intended recipient, please notify the sender immediately, delete this email and all copies from your system. Any copying, disclosure, or use of the contents of this email in any form is strictly prohibited.
+        </p>
+    </div>
+</div>
+</body>
+</html>
