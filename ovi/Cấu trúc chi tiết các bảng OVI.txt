@@ -59,3 +59,14 @@ CREATE TABLE admin_user (
     role VARCHAR(50) DEFAULT 'ADMIN',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE company_profile (
+    id bigint PRIMARY KEY,
+    company_name VARCHAR(255),
+    description TEXT,
+    file_data OID NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_type VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP
+);
