@@ -31,9 +31,6 @@ public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
-//    @Autowired
-//    private JavaMailSender mailSender;
-
     @Autowired
     private JavaMailSender mailSender;
 
@@ -88,22 +85,6 @@ public class ContactService {
     public void delete(Long id) {
         contactRepository.deleteById(id);
     }
-
-//    private void sendConfirmationEmail(ContactMessage contact) {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setFrom("info@ovigroup.vn"); // ✅ Thêm dòng này
-//        message.setTo(contact.getEmail());
-//        message.setSubject("Cảm ơn bạn đã liên hệ với chúng tôi");
-//        message.setText(
-//                "Xin chào " + contact.getName() + ",\n\n" +
-//                        "Chúng tôi đã nhận được thông tin của bạn:\n\n" +
-//                        "Nội dung: " + contact.getMessage() + "\n\n" +
-//                        "Chúng tôi sẽ phản hồi sớm nhất có thể.\n\n" +
-//                        "Trân trọng,\nĐội ngũ hỗ trợ công ty OVI."
-//        );
-//
-//        mailSender.send(message);
-//    }
 
     private void sendConfirmationEmail(ContactMessage contact) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
