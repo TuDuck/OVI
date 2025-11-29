@@ -19,7 +19,7 @@ public class CompanyProfileController {
     private final CompanyProfileService service;
 
     // UPLOAD FILE
-    @PostMapping("/upload")
+    @PostMapping("/company-profile")
     public ResponseEntity<?> upload(
             @RequestParam("file") MultipartFile file,
             @RequestParam("companyName") String companyName,
@@ -34,7 +34,7 @@ public class CompanyProfileController {
     }
 
     // DOWNLOAD FILE
-    @GetMapping("/{id}/download")
+    @GetMapping("/company-profile/{id}/download")
     public ResponseEntity<?> downloadFile(@PathVariable Long id) {
         CompanyProfileDto profile = service.getProfile(id);
         if (profile == null) {
@@ -46,13 +46,13 @@ public class CompanyProfileController {
     }
 
     // GET ALL
-    @GetMapping("/all")
+    @GetMapping("/company-profile")
     public ResponseEntity<List<CompanyProfileDto>> getAll() {
         return ResponseEntity.ok(service.getAllProfiles());
     }
 
     // DELETE
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/company-profile/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         boolean deleted = service.deleteProfile(id);
         if (!deleted) {
