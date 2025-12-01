@@ -44,6 +44,7 @@ public class FeaturedPersonService {
                     existing.setImageData(personDto.getImageData());
                     existing.setType(personDto.getType());
                     existing.setStatus(personDto.getStatus());
+                    existing.setLink(personDto.getLink());
                     existing.setUpdatedAt(personDto.getUpdatedAt());
                     return featuredPersonRepository.save(existing);
                 })

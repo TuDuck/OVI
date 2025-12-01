@@ -39,6 +39,9 @@ public class FeaturedPersonDto {
     @Column(name = "status")
     private int status;
 
+    @Column(name = "link")
+    private String link;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
