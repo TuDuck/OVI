@@ -45,6 +45,7 @@ public class NewService {
         existing.setCategory(dto.getCategory());
         existing.setViews(dto.getViews());
         existing.setFeatured(dto.getFeatured());
+        existing.setLink(dto.getLink());
         existing.setUpdatedAt(LocalDateTime.now());
         return newRepository.save(existing);
     }
