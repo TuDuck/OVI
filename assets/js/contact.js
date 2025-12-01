@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const message = document.getElementById("message-field").value;
 
     try {
-      const response = await fetch("http://14.225.71.26:8000/api/contact", {
+      const response = await fetch("http://26.129.206.142:8080/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWVubnYiLCJpYXQiOjE3NjIyMzAwMDN9.RPI0R1UgVl3V4yuoXbm6I2H6xV8whs1DXy065i4kzXI"
+          "Authorization": `Bearer ${window.API_TOKEN}`
         },
         body: JSON.stringify({
           name: name,

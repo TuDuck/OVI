@@ -1,4 +1,19 @@
-const NEWS_API = "http://14.225.71.26:8000/api/news";
+/**
+ * ADMIN NEWS MANAGEMENT
+ * API Response Format:
+ * {
+ *   "id": 13,
+ *   "title": "Tin cập nhật",
+ *   "summary": "Tóm tắt cập nhật",
+ *   "content": "Nội dung cập nhật",
+ *   "author": "Admin",
+ *   "imageData": "base64string...", // Base64 image without data URL prefix
+ *   "createdAt": "2025-11-06T09:58:52.205299",
+ *   "updatedAt": "2025-11-28T21:32:19.485099"
+ * }
+ */
+
+const NEWS_API = "http://26.129.206.142:8080/api/news";
 const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWVubnYiLCJpYXQiOjE3NjIyNDUyMTV9.jzCfBf85jOaH8Qn1JT7XStwFpaBLBdkDkQFW0IVVheQ";
 
 let newsItems = [];
@@ -8,7 +23,7 @@ let pageSize = 10;
 let totalPages = 0;
 let totalElements = 0;
 
-// image base64 for upload
+// image base64 for upload (stored with data URL prefix for preview)
 let imageBase64 = null;
 
 function openNewsForm(clear = true) {
@@ -27,9 +42,14 @@ function closeNewsForm() {
 function clearNewsForm() {
     const id = document.getElementById("newsId"); if (id) id.value = "";
     const t = document.getElementById("newsTitle"); if (t) t.value = "";
+    const cat = document.getElementById("newsCategory"); if (cat) cat.value = "";
     const s = document.getElementById("newsSummary"); if (s) s.value = "";
     const c = document.getElementById("newsContent"); if (c) c.value = "";
     const a = document.getElementById("newsAuthor"); if (a) a.value = "";
+    const feat = document.getElementById("newsFeatured"); if (feat) feat.value = "N";
+    const status = document.getElementById("newsStatus"); if (status) status.value = "1";
+    const views = document.getElementById("newsViews"); if (views) views.value = "0";
+    const link = document.getElementById("newsLink"); if (link) link.value = "";
     imageBase64 = null;
     const preview = document.getElementById("newsImagePreview");
     if (preview) { preview.src = ""; preview.style.display = "none"; }
@@ -58,6 +78,9 @@ async function fetchNews(page = 0) {
     try {
         const title = document.getElementById("searchTitle")?.value?.trim() || "";
         const author = document.getElementById("searchAuthor")?.value?.trim() || "";
+        const category = document.getElementById("filterCategory")?.value?.trim() || "";
+        const status = document.getElementById("filterStatus")?.value?.trim() || "";
+        const featured = document.getElementById("filterFeatured")?.value?.trim() || "";
 
         let url = `${NEWS_API}`;
         const params = new URLSearchParams();
@@ -100,15 +123,17 @@ async function fetchNews(page = 0) {
         }
 
         // 🔍 Lọc client-side (phòng khi backend chưa hỗ trợ filter)
-        if (title || author) {
-            newsItems = newsItems.filter(n => {
-                const matchTitle = !title || (n.title || "").toLowerCase().includes(title.toLowerCase());
-                const matchAuthor = !author || (n.author || "").toLowerCase().includes(author.toLowerCase());
-                return matchTitle && matchAuthor;
-            });
-            totalElements = newsItems.length;
-            totalPages = Math.ceil(totalElements / pageSize);
-        }
+        newsItems = newsItems.filter(n => {
+            const matchTitle = !title || (n.title || "").toLowerCase().includes(title.toLowerCase());
+            const matchAuthor = !author || (n.author || "").toLowerCase().includes(author.toLowerCase());
+            const matchCategory = !category || (n.category || "") === category;
+            const matchStatus = !status || (n.status !== undefined && n.status.toString() === status);
+            const matchFeatured = !featured || (n.featured || "N") === featured;
+            return matchTitle && matchAuthor && matchCategory && matchStatus && matchFeatured;
+        });
+        
+        totalElements = newsItems.length;
+        totalPages = Math.ceil(totalElements / pageSize);
 
         // 🔠 Sắp xếp theo title
         newsItems.sort((a, b) => {
@@ -199,13 +224,35 @@ function paginateClient(arr, page) {
 async function saveNews() {
     const idVal = document.getElementById("newsId")?.value;
     const title = (document.getElementById("newsTitle")?.value || "").trim();
+    const category = (document.getElementById("newsCategory")?.value || "").trim();
     const summary = (document.getElementById("newsSummary")?.value || "").trim();
     const content = (document.getElementById("newsContent")?.value || "").trim();
     const author = (document.getElementById("newsAuthor")?.value || "").trim();
-    const image_data = imageBase64 || null;
+    const featured = document.getElementById("newsFeatured")?.value || "N";
+    const status = parseInt(document.getElementById("newsStatus")?.value || "1");
+    const views = parseInt(document.getElementById("newsViews")?.value || "0");
+    const link = (document.getElementById("newsLink")?.value || "").trim() || null;
+    
+    // Convert data URL to base64 only (remove the "data:image/...;base64," prefix)
+    let imageData = null;
+    if (imageBase64) {
+        const match = imageBase64.match(/^data:image\/[^;]+;base64,(.+)$/);
+        imageData = match ? match[1] : imageBase64;
+    }
 
-    // Build payload exactly as API expects
-    const payload = { title, summary, content, image_data, author };
+    // Build payload exactly as API expects (camelCase)
+    const payload = { 
+        title, 
+        category, 
+        summary, 
+        content, 
+        imageData, 
+        author,
+        featured,
+        status,
+        views,
+        link
+    };
 
     console.log("Sending payload to server:", payload);
 
@@ -248,14 +295,30 @@ async function editNews(id) {
         const n = await res.json();
         if (document.getElementById("newsId")) document.getElementById("newsId").value = n.id ?? "";
         if (document.getElementById("newsTitle")) document.getElementById("newsTitle").value = n.title ?? "";
+        if (document.getElementById("newsCategory")) document.getElementById("newsCategory").value = n.category ?? "";
         if (document.getElementById("newsSummary")) document.getElementById("newsSummary").value = n.summary ?? "";
         if (document.getElementById("newsContent")) document.getElementById("newsContent").value = n.content ?? "";
         if (document.getElementById("newsAuthor")) document.getElementById("newsAuthor").value = n.author ?? "";
-        // image
-        imageBase64 = n.image_data ?? n.imageData ?? null;
+        if (document.getElementById("newsFeatured")) document.getElementById("newsFeatured").value = n.featured ?? "N";
+        if (document.getElementById("newsStatus")) document.getElementById("newsStatus").value = n.status ?? "1";
+        if (document.getElementById("newsViews")) document.getElementById("newsViews").value = n.views ?? "0";
+        if (document.getElementById("newsLink")) document.getElementById("newsLink").value = n.link ?? "";
+        
+        // Handle imageData (API returns base64 without data URL prefix)
+        imageBase64 = null;
+        if (n.imageData) {
+            // If it's pure base64, add the data URL prefix
+            imageBase64 = n.imageData.startsWith('data:') ? n.imageData : `data:image/png;base64,${n.imageData}`;
+        }
+        
         const preview = document.getElementById("newsImagePreview");
-        if (imageBase64 && preview) { preview.src = imageBase64; preview.style.display = "block"; }
-        else if (preview) preview.style.display = "none";
+        if (imageBase64 && preview) { 
+            preview.src = imageBase64; 
+            preview.style.display = "block"; 
+        } else if (preview) {
+            preview.style.display = "none";
+        }
+        
         openNewsForm(false);
     } catch (err) {
         console.error(err);
@@ -284,17 +347,61 @@ function renderNewsTable(items) {
     if (!tbody) return;
     tbody.innerHTML = "";
     (items || []).forEach(n => {
-        const imgHtml = n.image_data ? `<img src="${escapeHtml(n.image_data)}" style="max-width:80px;border-radius:4px">` : "";
+        // Handle imageData (convert base64 to data URL if needed)
+        let imgHtml = "";
+        if (n.imageData) {
+            const imgSrc = n.imageData.startsWith('data:') ? n.imageData : `data:image/png;base64,${n.imageData}`;
+            imgHtml = `<img src="${imgSrc}" style="max-width:60px;max-height:60px;object-fit:cover;border-radius:4px">`;
+        }
+        
+        // Format date: createdAt
+        let dateStr = "";
+        if (n.createdAt) {
+            const date = new Date(n.createdAt);
+            dateStr = `${date.getDate().toString().padStart(2,'0')}/${(date.getMonth()+1).toString().padStart(2,'0')}/${date.getFullYear()}`;
+        }
+        
+        // Truncate title
+        const title = escapeHtml(n.title ?? "");
+        const titleShort = title.length > 40 ? title.substring(0, 40) + '...' : title;
+        
+        // Truncate author
+        const author = escapeHtml(n.author ?? "");
+        const authorShort = author.length > 15 ? author.substring(0, 15) + '...' : author;
+        
+        // Featured badge (shorter)
+        const featuredBadge = n.featured === 'Y' 
+            ? '<span class="badge badge-warning" title="Tin nổi bật">⭐</span>' 
+            : '<span class="badge badge-light" title="Tin thường">-</span>';
+        
+        // Status badge
+        const statusBadge = n.status === 1 
+            ? '<span class="badge badge-success">✓</span>' 
+            : '<span class="badge badge-danger">✗</span>';
+        
+        // Category badge (shorter)
+        const categoryShort = escapeHtml((n.category ?? "").substring(0, 10));
+        
         tbody.innerHTML += `
             <tr>
-                <td>${n.id ?? ""}</td>
-                <td>${escapeHtml(n.title ?? "")}</td>
-                <td>${escapeHtml(n.summary ?? "")}</td>
-                <td>${escapeHtml(n.author ?? "")}</td>
-                <td>${imgHtml}</td>
-                <td>
-                    <button class="btn btn-info btn-sm" onclick="editNews(${n.id})"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteNews(${n.id})"><i class="fas fa-trash"></i></button>
+                <td style="width: 50px;">${n.id ?? ""}</td>
+                <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${title}">
+                    ${titleShort}
+                </td>
+                <td style="width: 100px; text-align: center;">
+                    <span class="badge badge-primary">${categoryShort}</span>
+                </td>
+                <td style="max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${author}">
+                    ${authorShort}
+                </td>
+                <td style="width: 70px; text-align: center;">${featuredBadge}</td>
+                <td style="width: 70px; text-align: center;">${statusBadge}</td>
+                <td style="width: 80px; text-align: center;">${(n.views ?? 0).toLocaleString()}</td>
+                <td style="width: 80px; text-align: center;">${imgHtml}</td>
+                <td style="width: 100px; white-space: nowrap;">${dateStr}</td>
+                <td style="width: 100px; white-space: nowrap;">
+                    <button class="btn btn-info btn-sm" onclick="editNews(${n.id})" title="Sửa"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteNews(${n.id})" title="Xóa"><i class="fas fa-trash"></i></button>
                 </td>
             </tr>
         `;
@@ -328,7 +435,13 @@ function debounce(fn, d=300){ let t; return (...a)=>{ clearTimeout(t); t=setTime
 document.addEventListener("DOMContentLoaded", () => {
     fetchNews(0);
     const deb = debounce(()=>fetchNews(0), 350);
-    ["searchTitle","searchAuthor"].forEach(id=>{ const el=document.getElementById(id); if(el){ el.addEventListener("input", deb); el.addEventListener("change", deb); }});
+    ["searchTitle","searchAuthor","filterCategory","filterStatus","filterFeatured"].forEach(id=>{ 
+        const el=document.getElementById(id); 
+        if(el){ 
+            el.addEventListener("input", deb); 
+            el.addEventListener("change", deb); 
+        }
+    });
     const sortBtn = document.getElementById("sortTitleBtn");
     if (sortBtn) sortBtn.addEventListener("click", async ()=>{ sortTitleAsc = !sortTitleAsc; await fetchNews(currentPage); const icon = sortBtn.querySelector("i"); if (icon) icon.className = `fas fa-sort-alpha-${sortTitleAsc ? "down" : "up"}`; });
     const overlay = document.querySelector(".form-overlay"); if (overlay) overlay.addEventListener("click", closeNewsForm);

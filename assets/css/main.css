@@ -369,6 +369,7 @@ h6 {
 --------------------------------------------------------------*/
 /* Navmenu - Desktop */
 @media (min-width: 1200px) {
+
   .navmenu {
     padding: 0;
   }
@@ -473,11 +474,129 @@ h6 {
     visibility: visible;
   }
 
+  /* Mega Menu Dropdown for Products & Services */
+  .navmenu .dropdown-mega .megamenu-dropdown {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 130%;
+    width: 90vw;
+    max-width: 1200px;
+    background: var(--nav-dropdown-background-color);
+    border-radius: 8px;
+    box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.12);
+    padding: 30px 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+  }
+
+  .navmenu .dropdown-mega:hover .megamenu-dropdown {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  .megamenu-dropdown #services-dropdown-list > div {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .megamenu-dropdown .service-item-dropdown {
+    padding: 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-height: 90px;
+    display: flex;
+    align-items: flex-start;
+    text-decoration: none;
+    color: var(--default-color);
+  }
+
+  .megamenu-dropdown .service-item-dropdown:hover {
+    background: color-mix(in srgb, var(--accent-color), transparent 95%);
+    transform: translateY(-2px);
+  }
+
+  .megamenu-dropdown .service-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  }
+
+  .megamenu-dropdown .service-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .megamenu-dropdown .service-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .megamenu-dropdown .service-content h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--heading-color);
+    transition: color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .megamenu-dropdown .service-item-dropdown:hover h4 {
+    color: var(--accent-color);
+  }
+
+  .megamenu-dropdown .service-content p {
+    font-size: 13px;
+    color: color-mix(in srgb, var(--default-color), transparent 40%);
+    margin: 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3em;
+  }
+
   .nav-right {
     display: flex;
     align-items: center;
     gap: 20px;
     /* chỉnh khoảng cách giữa navmenu và language button */
+  }
+
+  /* Tablet responsive for mega menu */
+  @media (max-width: 992px) {
+    .megamenu-dropdown .service-item-dropdown {
+      min-height: 85px;
+    }
+
+    .megamenu-dropdown .service-content h4 {
+      font-size: 15px;
+    }
+
+    .megamenu-dropdown .service-content p {
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .megamenu-dropdown .megamenu-dropdown {
+      width: 95vw;
+    }
   }
 }
 
@@ -580,6 +699,43 @@ h6 {
   .navmenu .dropdown>.dropdown-active {
     display: block;
     background-color: rgba(33, 37, 41, 0.03);
+  }
+
+  /* Mega Menu Mobile */
+  .navmenu .dropdown-mega .megamenu-dropdown {
+    position: static;
+    width: 100%;
+    max-width: none;
+    transform: none;
+    box-shadow: none;
+    padding: 10px 0;
+    background: transparent;
+    display: none;
+  }
+
+  .navmenu .dropdown-mega.dropdown-active .megamenu-dropdown {
+    display: block;
+  }
+
+  .megamenu-dropdown .service-item-dropdown {
+    padding: 12px 20px;
+    margin: 5px 0;
+    background: rgba(33, 37, 41, 0.03);
+    border-radius: 4px;
+    min-height: auto;
+  }
+
+  .megamenu-dropdown #services-dropdown-list > div {
+    margin-bottom: 0;
+  }
+
+  .megamenu-dropdown .service-content h4 {
+    white-space: normal;
+  }
+
+  .megamenu-dropdown .service-content p {
+    -webkit-line-clamp: 3;
+    max-height: 4.5em;
   }
 
   .mobile-nav-active {
@@ -930,8 +1086,8 @@ h6 {
 
 #scroll-top {
   position: fixed;
-  left: 15px;
-  bottom: 35px;
+  right: 26px;
+  bottom: 70px;
   z-index: 99999;
 }
 
@@ -948,9 +1104,9 @@ h6 {
 .scroll-top {
   position: static;
   background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
-  width: 45px;
-  height: 45px;
-  border-radius: 4px;
+  width: 50px;
+  height: 50px;
+  border-radius: 17px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -969,9 +1125,9 @@ h6 {
 
 .social-btn {
   position: static;
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
-  width: 45px;
-  height: 45px;
+  /* background-color: color-mix(in srgb, var(--accent-color), transparent 90%); */
+  /* width: 45px;
+  height: 45px; */
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -981,11 +1137,6 @@ h6 {
   visibility: visible;
 }
 
-.fb-btn:hover {
-  background-color: #841214;
-  /* Facebook xanh */
-}
-
 .zalo-btn:hover {
   background-color: #9e1719;
   /* Zalo xanh nhạt */
@@ -993,6 +1144,11 @@ h6 {
 
 .scroll-top:hover {
   background-color: #790608;
+}
+
+.zalo-chat-widget {
+    bottom: 20px !important;
+    right: 20px !important;
 }
 
 /*--------------------------------------------------------------
@@ -1425,7 +1581,7 @@ section,
 # Stats Section
 --------------------------------------------------------------*/
 .stats {
-  background: linear-gradient(to bottom, #fff, #929191);
+  background-color: #f5f5f5;
 }
 
 .stats i {
@@ -1492,7 +1648,7 @@ section,
 --------------------------------------------------------------*/
 .clients {
   padding: 25px 0;
-  background: linear-gradient(to top, #fff, #929191);
+  background-color: #f5f5f5;
 }
 
 .clients .swiper {
@@ -1804,11 +1960,25 @@ section,
   background-image: url("/assets/img/background-texture.png");
 }
 
+.team #leader-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.team .team-member-col {
+  flex: 0 0 calc(20% - 19.2px);
+  max-width: calc(20% - 19.2px);
+  display: flex;
+}
+
 .team .team-member {
   background-color: var(--surface-color);
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   border-radius: 5px;
+  width: 100%;
 }
 
 .team .team-member .member-img {
@@ -1880,6 +2050,85 @@ section,
 
 .team .team-member:hover .social {
   opacity: 1;
+}
+
+/* Download Profile Button */
+.team .section-title {
+  position: relative;
+}
+
+.btn-download-profile {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background: linear-gradient(135deg, var(--accent-color), color-mix(in srgb, var(--accent-color), #000 15%));
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-download-profile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), #fff 10%), var(--accent-color));
+}
+
+.btn-download-profile:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-download-profile i {
+  font-size: 18px;
+}
+
+/* Responsive for Team Members - 5 columns layout */
+@media (max-width: 1400px) {
+  .team .team-member-col {
+    flex: 0 0 calc(25% - 18px);
+    max-width: calc(25% - 18px);
+  }
+}
+
+@media (max-width: 992px) {
+  .team .team-member-col {
+    flex: 0 0 calc(33.333% - 16px);
+    max-width: calc(33.333% - 16px);
+  }
+}
+
+@media (max-width: 768px) {
+  .team .team-member-col {
+    flex: 0 0 calc(50% - 12px);
+    max-width: calc(50% - 12px);
+  }
+  
+  .btn-download-profile {
+    position: static;
+    margin-top: 20px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .team .team-member-col {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .team #leader-list {
+    gap: 16px;
+  }
 }
 
 /*--------------------------------------------------------------

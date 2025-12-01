@@ -23,6 +23,10 @@
 </head>
 
 <body class="animsition">
+    <!-- Load AuthHelper first -->
+    <script src="../assets/javarscript/login.js"></script>
+    <!-- Then load auth guard -->
+    <script src="js/auth-guard.js"></script>
     <div class="page-wrapper">
         <!-- Sidebar -->
         <aside class="menu-sidebar d-none d-lg-block">
@@ -33,11 +37,12 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li><a href="index.html"><i class="fas fa-home"></i>Trang chủ</a></li>
-                        <li><a href="FeaturePerson.html"><i class="fas fa-users"></i>Feature Person</a></li>
+                        <li><a href="FeaturePerson.html"><i class="fas fa-users"></i>Dữ liệu tổng hợp</a></li>
                         <li class="active"><a href="productService.html"><i class="fas fa-box"></i>Sản phẩm & Dịch vụ</a>
                         </li>
-                        <li><a href="news.html"><i class="fas fa-newspaper"></i>News</a></li>
-                        <li><a href="contact.html"><i class="fas fa-envelope"></i>Contact</a></li>
+                        <li><a href="news.html"><i class="fas fa-newspaper"></i>Tin tức</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i>Liên hệ</a></li>
+                        <li><a href="profileCompany.html"><i class="fas fa-building"></i>Hồ sơ Công ty</a></li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-cog"></i>Chức năng</a>
@@ -68,7 +73,7 @@
                                 <div class="content"><a class="js-acc-btn" href="#">ADMIN</a></div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="account-dropdown__footer">
-                                        <a href="/login.html"><i class="zmdi zmdi-power"></i>Đăng xuất</a>
+                                        <a href="#" onclick="logout(); return false;"><i class="zmdi zmdi-power"></i>Đăng xuất</a>
                                     </div>
                                 </div>
                             </div>

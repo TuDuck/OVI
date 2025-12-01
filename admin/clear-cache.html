@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Cache - OVI Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .info strong {
+            color: #667eea;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 Clear Cache & Token</h1>
+        <p>Xóa token và cache để đăng nhập lại từ đầu</p>
+        
+        <div class="info">
+            <strong>Token hiện tại:</strong><br>
+            <span id="current-token">Checking...</span>
+        </div>
+
+        <button onclick="clearAll()">
+            🗑️ Clear Token & Reload
+        </button>
+        
+        <button onclick="goToLogin()">
+            🔐 Go to Login
+        </button>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        // Hiển thị token hiện tại
+        const token = localStorage.getItem("token");
+        const tokenDisplay = document.getElementById("current-token");
+        
+        if (token) {
+            tokenDisplay.textContent = "Đã có token"; // token.substring(0, 50) + "..."
+            tokenDisplay.style.color = "#28a745";
+        } else {
+            tokenDisplay.textContent = "Không có token";
+            tokenDisplay.style.color = "#999";
+        }
+
+        function clearAll() {
+            try {
+                // Clear localStorage
+                localStorage.clear();
+                
+                // Clear sessionStorage
+                sessionStorage.clear();
+                
+                // Show success message
+                document.getElementById("message").innerHTML = 
+                    '<div class="success">✅ Đã xóa token thành công!<br>Đang reload...</div>';
+                
+                // Reload page sau 1 giây
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            } catch (error) {
+                document.getElementById("message").innerHTML = 
+                    '<div class="error">❌ Lỗi: ' + error.message + '</div>';
+            }
+        }
+
+        function goToLogin() {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = "/admin/login.html";
+        }
+    </script>
+</body>
+</html>
+

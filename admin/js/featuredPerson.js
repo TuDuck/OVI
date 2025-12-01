@@ -1,5 +1,5 @@
-const API_URL = "http://14.225.71.26:8000/api/featuredPerson/search";
-const API_URL_CRUD = "http://14.225.71.26:8000/api/featuredPerson";
+const API_URL = "http://26.129.206.142:8080/api/featuredPerson/search";
+const API_URL_CRUD = "http://26.129.206.142:8080/api/featuredPerson";
 const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWVubnYiLCJpYXQiOjE3NjIyNDUyMTV9.jzCfBf85jOaH8Qn1JT7XStwFpaBLBdkDkQFW0IVVheQ";
 
 let imageBase64 = null; //khai báo biến toàn cục để lưu base64 của hình ảnh

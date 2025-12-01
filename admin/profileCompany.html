@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Contact Message Management</title>
+    <title>Quản lý Hồ sơ Công ty</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="assets/img/logo_icon.png" rel="icon">
 
     <!-- Font & Icons -->
     <link href="css/font-face.css" rel="stylesheet">
@@ -18,9 +17,11 @@
     <link href="vendor/animsition/animsition.min.css" rel="stylesheet">
     <link href="vendor/select2/select2.min.css" rel="stylesheet">
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+
+    <!-- Theme / Page CSS -->
     <link href="css/theme.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/contact.css" rel="stylesheet">
+    <link href="css/profileCompany.css" rel="stylesheet">
 </head>
 
 <body class="animsition">
@@ -42,8 +43,8 @@
                         <li><a href="productService.html"><i class="fas fa-box"></i>Sản phẩm & Dịch
                                 vụ</a></li>
                         <li><a href="news.html"><i class="fas fa-newspaper"></i>Tin tức</a></li>
-                        <li class="active"><a href="contact.html"><i class="fas fa-envelope"></i>Liên hệ</a></li>
-                        <li><a href="profileCompany.html"><i class="fas fa-building"></i>Hồ sơ Công ty</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i>Liên hệ</a></li>
+                        <li class="active"><a href="profileCompany.html"><i class="fas fa-building"></i>Hồ sơ Công ty</a></li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-cog"></i>Chức năng</a>
@@ -61,20 +62,22 @@
             </div>
         </aside>
 
-        <!-- PAGE CONTAINER -->
+        <!-- Page container -->
         <div class="page-container">
             <!-- Header -->
             <header class="header-desktop">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid d-flex justify-content-between align-items-center">
-                        <h1>Quản lý tin nhắn liên hệ</h1>
+                        <h1>Quản lý Hồ sơ Công ty</h1>
                         <div class="account-wrap">
                             <div class="account-item clearfix js-item-menu">
                                 <div class="image"><img src="images/icon/avatar-01.jpg" alt="Admin"></div>
-                                <div class="content"><a class="js-acc-btn" href="#">ADMIN</a></div>
+                                <div class="content"><a class="js-acc-btn" href="#" id="username-display">ADMIN</a></div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="account-dropdown__footer">
-                                        <a href="#" onclick="logout(); return false;"><i class="zmdi zmdi-power"></i>Đăng xuất</a>
+                                        <a href="#" onclick="logout(); return false;">
+                                            <i class="zmdi zmdi-power"></i>Đăng xuất
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -83,81 +86,81 @@
                 </div>
             </header>
 
-            <!-- MAIN CONTENT-->
+            <!-- Main content -->
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <!-- Toolbar -->
-                        <div class="table-data__tool mb-3">
-                            <div class="table-data__tool-right">
-                                <button class="btn btn-primary" onclick="openAddContactForm()">
-                                    ➕ Thêm liên hệ mới
-                                </button>
-                            </div>
+                        <div class="table-data__tool mb-3 d-flex justify-content-between align-items-center">
+                            <button class="btn btn-primary" type="button" onclick="openProfileForm()">➕ Thêm mới</button>
+                            <button id="sortCompanyNameBtn" class="btn btn-secondary">Sắp xếp theo tên công ty <i
+                                    class="fas fa-sort"></i></button>
                         </div>
 
-                        <!-- Search filters -->
+                        <!-- Search & Filters -->
                         <div class="row mb-3">
                             <div class="col-md-8">
                                 <div class="input-group">
-                                    <input type="text" id="searchName" class="form-control"
-                                        placeholder="Tìm theo tên...">
-                                    <input type="text" id="searchEmail" class="form-control"
-                                        placeholder="Tìm theo email...">
-                                    <input type="text" id="searchPhone" class="form-control"
-                                        placeholder="Tìm theo số điện thoại...">
+                                    <input type="text" id="searchCompanyName" class="form-control"
+                                        placeholder="Tìm theo tên công ty...">
+                                    <input type="text" id="searchDescription" class="form-control"
+                                        placeholder="Tìm theo mô tả...">
+                                    <select id="filterFileType" class="form-control">
+                                        <option value="">Tất cả loại file</option>
+                                        <option value="application/vnd.openxmlformats-officedocument.wordprocessingml.document">Word (.docx)</option>
+                                        <option value="application/pdf">PDF</option>
+                                        <option value="application/msword">Word (.doc)</option>
+                                    </select>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <button id="sortNameBtn" class="btn btn-secondary">
-                                    Sắp xếp theo tên <i class="fas fa-sort"></i>
-                                </button>
                             </div>
                         </div>
 
-                        <!-- Messages Table -->
+                        <!-- Table -->
                         <div class="table-responsive table-responsive-data2">
                             <table class="table table-data2">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Tên</th>
-                                        <th>Email</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Tin nhắn</th>
+                                        <th>Tên công ty</th>
+                                        <th>Mô tả</th>
+                                        <th>Tên file</th>
+                                        <th>Loại file</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Ngày cập nhật</th>
                                         <th>Thao tác</th>
                                     </tr>
                                 </thead>
-                                <tbody id="contactTableBody"></tbody>
+                                <tbody id="profileTableBody"></tbody>
                             </table>
                         </div>
 
                         <!-- Pagination -->
                         <div id="pagination" class="mt-3 d-flex justify-content-center"></div>
 
-                        <!-- Message Detail Modal -->
+                        <!-- Overlay + Form popup -->
                         <div class="form-overlay"></div>
-                        <div id="messageDetailForm" class="offcanvas-form">
+
+                        <div id="profileForm" class="offcanvas-form" aria-hidden="true">
                             <div class="form-container">
-                                <h4>📧 Chi tiết tin nhắn</h4>
+                                <h4>📝 Thêm / Sửa Hồ sơ Công ty</h4>
 
-                                <input type="hidden" id="messageId">
+                                <input type="hidden" id="profileId">
 
-                                <label>Tên người gửi:</label>
-                                <input type="text" id="contactName" class="form-control mb-2">
+                                <label>Tên công ty:</label>
+                                <input type="text" id="profileCompanyName" class="form-control mb-2" required>
 
-                                <label>Email:</label>
-                                <input type="email" id="contactEmail" class="form-control mb-2">
+                                <label>Mô tả:</label>
+                                <textarea id="profileDescription" class="form-control mb-2" rows="3"></textarea>
 
-                                <label>Số điện thoại:</label>
-                                <input type="tel" id="contactPhone" class="form-control mb-2">
-
-                                <label>Nội dung tin nhắn:</label>
-                                <textarea id="contactMessage" class="form-control mb-3" rows="6"></textarea>
+                                <label>File:</label>
+                                <input type="file" id="profileFile" class="form-control mb-2" accept=".doc,.docx,.pdf">
+                                <div id="fileInfo" class="mb-2" style="display:none;">
+                                    <small class="text-muted">File hiện tại: <span id="currentFileName"></span></small>
+                                </div>
 
                                 <div class="form-actions">
-                                    <button class="btn btn-success" onclick="saveMessage()">Lưu</button>
-                                    <button class="btn btn-light" onclick="closeMessageDetail()">Hủy</button>
+                                    <button class="btn btn-success" type="button" onclick="saveProfile()">Lưu</button>
+                                    <button class="btn btn-light" type="button" onclick="closeProfileForm()">Hủy</button>
                                 </div>
                             </div>
                         </div>
@@ -170,12 +173,14 @@
 
     <!-- Scripts -->
     <script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
     <script src="vendor/animsition/animsition.min.js"></script>
     <script src="vendor/select2/select2.min.js"></script>
     <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/contact.js"></script>
+    <script src="js/profileCompany.js"></script>
 </body>
 
 </html>
+
