@@ -199,9 +199,14 @@ async function loadClients() {
         ? item.imageData
         : `data:image/png;base64,${item.imageData}`;
 
+      // Kiểm tra có link không
+      const hasLink = item.link && item.link.trim() !== '';
+      
       return `
         <div class="swiper-slide">
-          <img src="${imageSrc}" class="img-fluid" alt="${item.name || 'Client'}">
+          ${hasLink ? `<a href="${item.link}" target="_blank" rel="noopener noreferrer">` : ''}
+            <img src="${imageSrc}" class="img-fluid" alt="${item.name || 'Client'}" style="${hasLink ? 'cursor: pointer;' : ''}">
+          ${hasLink ? '</a>' : ''}
         </div>
       `;
     }).join('');

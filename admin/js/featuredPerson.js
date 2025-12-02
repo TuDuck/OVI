@@ -25,6 +25,7 @@ function clearPersonForm() {
     document.getElementById("name").value = "";
     document.getElementById("role").value = "";
     document.getElementById("description").value = "";
+    document.getElementById("link").value = "";
     document.getElementById("type").value = "COMPANY";
     document.getElementById("status").value = "1";
     const preview = document.getElementById("imagePreview");
@@ -72,12 +73,14 @@ function handleImageFileChange(event) {
 
 async function savePerson() {
     const idVal = document.getElementById("id").value;
+    const linkVal = document.getElementById("link").value || null;
     const data = {
         id: parseInt(document.getElementById("id").value),
         name: document.getElementById("name").value,
         role: document.getElementById("role").value,
         description: document.getElementById("description").value,
         imageData: imageBase64 || null, // Sử dụng biến toàn cục chứa base64 thay vì element ko tồn tại
+        link: linkVal,
         type: document.getElementById("type").value,
         status: parseInt(document.getElementById("status").value),
         createdAt: null,
@@ -125,6 +128,7 @@ async function editPerson(id) {
         document.getElementById("name").value = p.name || "";
         document.getElementById("role").value = p.role || "";
         document.getElementById("description").value = p.description || "";
+        document.getElementById("link").value = p.link || "";
         document.getElementById("type").value = p.type || "COMPANY";
         document.getElementById("status").value = (typeof p.status !== "undefined") ? String(p.status) : "1";
 
