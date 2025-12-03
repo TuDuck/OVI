@@ -68,7 +68,8 @@ public class SecurityConfig {
                 "http://127.0.0.1:8081",   // FE build chạy local
                 "http://localhost:5500",
                 "http://localhost:8081",
-                "http://14.225.71.26:8000"
+                "http://14.225.71.26:8000",
+                "http://ovigroup.vn"
 //                ,
 //                "https://s3xblcp9-5500.asse.devtunnels.ms"
         ));
