@@ -2,6 +2,7 @@ package web.vn.ovi.securiryConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,7 +32,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource())).authorizeHttpRequests(auth -> auth.requestMatchers("/api/public/**").permitAll().anyRequest().authenticated()).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
+        return http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource())).authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // cho preflight
+                .requestMatchers("/api/public/**").permitAll()
+                .anyRequest().authenticated()
+        ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 
     // ✅ Thêm bean AuthenticationManager
@@ -56,7 +61,6 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-//        config.addAllowedOrigin("http://127.0.0.1:5500"); // ✅ FE chạy ở đây
         config.setAllowedOrigins(Arrays.asList(
                 "https://ovigroup.vn",       // domain chính
                 "https://www.ovigroup.vn",    // nếu có www
@@ -65,10 +69,16 @@ public class SecurityConfig {
                 "http://localhost:5500",
                 "http://localhost:8081",
                 "http://14.225.71.26:8000"
+//                ,
+//                "https://s3xblcp9-5500.asse.devtunnels.ms"
         ));
-        config.addAllowedMethod("*");
-        config.addAllowedHeader("*");
-        config.setAllowCredentials(true); // Nếu có dùng token/cookie
+//        config.addAllowedMethod("*");
+//        config.addAllowedHeader("*");
+//        config.setAllowCredentials(true); // Nếu có dùng token/cookie
+
+        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS")); // CORS preflight
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowCredentials(true); // credentials phải true nếu dùng cookie/token
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
