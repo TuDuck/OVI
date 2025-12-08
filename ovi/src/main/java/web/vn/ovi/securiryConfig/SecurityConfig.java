@@ -30,13 +30,27 @@ public class SecurityConfig {
         this.adminUserService = adminUserService;
     }
 
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        return http.csrf(AbstractHttpConfigurer::disable)
+//                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+//                .authorizeHttpRequests(auth -> auth
+//                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // cho preflight
+//                .requestMatchers("/api/public/**").permitAll()
+//                .anyRequest().authenticated()
+//        ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
+//    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable).cors(cors -> cors.configurationSource(corsConfigurationSource())).authorizeHttpRequests(auth -> auth
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // cho preflight
-                .requestMatchers("/api/public/**").permitAll()
-                .anyRequest().authenticated()
-        ).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
+        return http.csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // ✅ QUAN TRỌNG: Cho phép OPTIONS
+                        .requestMatchers("/api/public/**").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     // ✅ Thêm bean AuthenticationManager
@@ -61,25 +75,25 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList(
-                "https://ovigroup.vn",       // domain chính
-                "https://www.ovigroup.vn",    // nếu có www
-                "http://127.0.0.1:5500",   // FE local dev
-                "http://127.0.0.1:8081",   // FE build chạy local
-                "http://localhost:5500",
-                "http://localhost:8081",
-                "http://14.225.71.26:8000",
-                "http://ovigroup.vn"
-//                ,
-//                "https://s3xblcp9-5500.asse.devtunnels.ms"
-        ));
-//        config.addAllowedMethod("*");
-//        config.addAllowedHeader("*");
-//        config.setAllowCredentials(true); // Nếu có dùng token/cookie
+        // Dùng addAllowedOriginPattern để linh hoạt với các biến thể domain khi deploy
+        // Pattern cho phép wildcard port và subdomain, hoạt động với allowCredentials=true
+        config.addAllowedOriginPattern("http://localhost:*");      // Local dev
+        config.addAllowedOriginPattern("http://127.0.0.1:*");      // Local dev
+        config.addAllowedOriginPattern("https://ovigroup.vn*");    // Production HTTPS (với/không www, port)
+        config.addAllowedOriginPattern("http://ovigroup.vn*");     // Production HTTP (với/không www, port)
+        config.addAllowedOriginPattern("http://14.225.71.26:*");   // IP server deploy HTTP
+        config.addAllowedOriginPattern("https://14.225.71.26:*"); // IP server deploy HTTPS
+        config.addAllowedOriginPattern("http://26.129.206.142:*");
 
-        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS")); // CORS preflight
-        config.setAllowedHeaders(Arrays.asList("*"));
-        config.setAllowCredentials(true); // credentials phải true nếu dùng cookie/token
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
+        config.setAllowCredentials(true); // Nếu có dùng token/cookie
+        config.setMaxAge(3600L); // Cache preflight response trong 1 giờ
+        config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type")); // Expose headers cho FE
+
+//        config.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS")); // CORS preflight
+//        config.setAllowedHeaders(Arrays.asList("*"));
+//        config.setAllowCredentials(true); // credentials phải true nếu dùng cookie/token
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
