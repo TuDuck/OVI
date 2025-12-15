@@ -195,7 +195,7 @@ Check thứ tự scripts trong HTML:
 
 **Vấn đề:**
 ```
-Access to fetch at 'http://26.129.206.142:8080/api/...' 
+Access to fetch at 'http://14.225.71.26:8080/api/...' 
 from origin 'http://127.0.0.1:5500' has been blocked by CORS policy
 ```
 

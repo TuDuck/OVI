@@ -13,7 +13,7 @@
  * }
  */
 
-const PROFILE_API = "http://26.129.206.142:8080/api/company-profile";
+const PROFILE_API = "http://14.225.71.26:8080/api/company-profile";
 const TOKEN = localStorage.getItem("token") || "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWVubnYiLCJpYXQiOjE3NjIyNDUyMTV9.jzCfBf85jOaH8Qn1JT7XStwFpaBLBdkDkQFW0IVVheQ";
 
 let profileItems = [];

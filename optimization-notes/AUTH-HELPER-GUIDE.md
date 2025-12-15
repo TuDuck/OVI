@@ -116,7 +116,7 @@ async function loadData() {
   try {
     const headers = window.AuthHelper.getAuthHeaders();
     
-    const response = await fetch("http://26.129.206.142:8080/api/data", {
+    const response = await fetch("http://14.225.71.26:8080/api/data", {
       headers
     });
 
@@ -171,7 +171,7 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 async function updateProfile(data) {
   try {
     const result = await AuthHelper.authenticatedFetch(
-      "http://26.129.206.142:8080/api/profile",
+      "http://14.225.71.26:8080/api/profile",
       {
         method: "PUT",
         body: JSON.stringify(data)
