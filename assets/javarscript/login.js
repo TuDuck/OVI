@@ -185,7 +185,7 @@ const auth = {
 		const password = document.getElementById("password").value;
 
 		try {
-			const res = await fetch("http://14.225.71.26:8080/api/public/login", {
+			const res = await fetch("https://ovigroup.vn/api/public/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -235,7 +235,7 @@ const register = {
 		const role = "ADMIN";
 
 		try {
-			const res = await fetch("http://14.225.71.26:8080/api/public/register", {
+			const res = await fetch("https://ovigroup.vn/api/public/register", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -277,7 +277,7 @@ const register = {
 // 		const role = "ADMIN"; // hoặc cho chọn qua dropdown
 
 // 		try {
-// 			const res = await fetch("http://14.225.71.26:8080/api/public/register", {
+// 			const res = await fetch("https://ovigroup.vn/api/public/register", {
 // 				method: "POST",
 // 				headers: {
 // 					"Content-Type": "application/json",

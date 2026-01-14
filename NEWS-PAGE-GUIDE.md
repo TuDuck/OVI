@@ -60,7 +60,7 @@
 ### API Endpoint (cần update)
 ```javascript
 // Trong assets/js/news.js
-const NEWS_API_URL = "http://14.225.71.26:8080/api/news";
+const NEWS_API_URL = "https://ovigroup.vn/api/news";
 const TOKEN = "eyJhbGciOiJIUzI1NiJ9...";
 ```
 

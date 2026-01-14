@@ -116,7 +116,7 @@ async function loadData() {
   try {
     const headers = window.AuthHelper.getAuthHeaders();
     
-    const response = await fetch("http://14.225.71.26:8080/api/data", {
+    const response = await fetch("https://ovigroup.vn/api/data", {
       headers
     });
 
@@ -171,7 +171,7 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 async function updateProfile(data) {
   try {
     const result = await AuthHelper.authenticatedFetch(
-      "http://14.225.71.26:8080/api/profile",
+      "https://ovigroup.vn/api/profile",
       {
         method: "PUT",
         body: JSON.stringify(data)

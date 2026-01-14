@@ -1,7 +1,7 @@
-const API_URL_LEADER = "http://14.225.71.26:8080/api/featuredPerson?type=LEADER";
-const API_URL_SERVICES = "http://14.225.71.26:8080/api/services";
-const API_URL_CLIENT = "http://14.225.71.26:8080/api/featuredPerson?type=CLIENT";
-const API_URL_PROFILE = "http://14.225.71.26:8080/api/company-profile";
+const API_URL_LEADER = "https://ovigroup.vn/api/featuredPerson?type=LEADER";
+const API_URL_SERVICES = "https://ovigroup.vn/api/services";
+const API_URL_CLIENT = "https://ovigroup.vn/api/featuredPerson?type=CLIENT";
+const API_URL_PROFILE = "https://ovigroup.vn/api/company-profile";
 
 // Helper function to escape HTML
 function escapeHtml(text) {

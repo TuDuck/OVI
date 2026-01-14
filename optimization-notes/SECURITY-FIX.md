@@ -46,8 +46,8 @@ public class SecurityConfig {
 **Frontend:**
 ```javascript
 // assets/js/UI_data.js
-const API_URL_LEADER = "http://14.225.71.26:8080/api/featuredPerson?type=LEADER";
-const API_URL_SERVICES = "http://14.225.71.26:8080/api/services";
+const API_URL_LEADER = "https://ovigroup.vn/api/featuredPerson?type=LEADER";
+const API_URL_SERVICES = "https://ovigroup.vn/api/services";
 
 async function loadLeaders() {
   try {
@@ -140,7 +140,7 @@ public class PublicProxyController {
 
 **Frontend:**
 ```javascript
-const API_URL = "http://14.225.71.26:8080/api/public/services";
+const API_URL = "https://ovigroup.vn/api/public/services";
 
 async function loadServices() {
   const response = await fetch(API_URL); // Không cần header gì cả
@@ -160,7 +160,7 @@ Nếu không thể sửa backend ngay:
 // Tạo file: assets/js/config.js (KHÔNG commit file này vào git)
 const API_CONFIG = {
   token: "eyJ...", // Token ở đây
-  baseUrl: "http://14.225.71.26:8080"
+  baseUrl: "https://ovigroup.vn"
 };
 
 // Thêm vào .gitignore
@@ -185,7 +185,7 @@ async function loadServices() {
 ### Bước 1: Revoke token hiện tại (Ngay lập tức)
 ```bash
 # Gọi API để invalidate token cũ
-curl -X POST http://14.225.71.26:8080/api/auth/logout \
+curl -X POST https://ovigroup.vn/api/auth/logout \
   -H "Authorization: Bearer eyJ..."
 ```
 

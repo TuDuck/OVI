@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const message = document.getElementById("message-field").value;
 
     try {
-      const response = await fetch("http://14.225.71.26:8080/api/contact", {
+      const response = await fetch("https://ovigroup.vn/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
